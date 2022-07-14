@@ -112,7 +112,7 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
       const picApy2 = ((        (1 + ( breakdownTotal / 100 ) / 365 ) ** 365) - 1 ) * 100
       const picApy =  (Math.pow((1 + ( breakdownTotal / 100 ) / 365 ) ,  365) - 1 ) * 100
 
-      const provideLP = (picApy > clqdrApy) ? true : false
+      const provideLP = (picApy > clqdrApy2) ? true : false
 
       console.log(breakdownClqdr, breakdownClqdr2)
       console.log(clqdrApy, clqdrApy2)
