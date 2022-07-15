@@ -94,12 +94,12 @@ export const App = () => {
       {pData!.status === "loaded" && (
         <Center>
           <Box width="80%">
-            <Flex padding="10px">
+            <Flex padding="10px" alignItems="center">
               <Spacer />
               <Box padding="5px">
-                <Stat>
-                  <StatLabel>APY cLQDR</StatLabel>
-                  <StatNumber>
+                <Stat >
+                  <StatLabel sx={{textAlign: "center", fontSize: "1.3rem"}}>APY cLQDR</StatLabel>
+                  <StatNumber sx={{ fontSize: "2rem"}}>
                     <chakra.span
                       color={
                         pData.payload.results.provideLP
@@ -107,14 +107,14 @@ export const App = () => {
                           : "green.400"
                       }
                     >
-                      {pData.payload.results.clqdrApy.toFixed(2)} %
+                      {pData.payload.results.clqdrApy.toFixed(2)}%
                     </chakra.span>
                   </StatNumber>
                 </Stat>
               </Box>
-              <Box padding="5px" width="30%">
-                <Square
-                  sx={{ fontSize: "1.3rem", fontWeight: "800", height: "50px" }}
+              <Box padding="5px" width="33%" >
+                <Center
+                  sx={{ fontSize: "1.3rem", fontWeight: "800", textAlign: "center"}}
                 >
                   {!pData ? (
                     <Spinner />
@@ -123,12 +123,12 @@ export const App = () => {
                   ) : (
                     "Hodl cLQDR"
                   )}
-                </Square>
+                </Center>
               </Box>
               <Box padding="5px">
-                <Stat>
-                  <StatLabel>APY PiC</StatLabel>
-                  <StatNumber>
+                <Stat sx={{textAlign: "center"}}>
+                  <StatLabel sx={{textAlign: "center", fontSize: "1.3rem"}}>APY PiC</StatLabel>
+                  <StatNumber sx={{ fontSize: "2rem"}}>
                     <chakra.span
                       color={
                         pData.payload.results.provideLP
@@ -136,7 +136,7 @@ export const App = () => {
                           : "red.400"
                       }
                     >
-                      {pData.payload.results.picApy.toFixed(2)} %
+                      {pData.payload.results.picApy.toFixed(2)}%
                     </chakra.span>
                   </StatNumber>
                 </Stat>
