@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FinalData, FinalData2 } from "types/pool"
+import { FinalData, Dashboard } from "types/Pool"
 import { ServiceType } from "types/Service";
 import { request } from "graphql-request"
 import { POOL_QUERY } from "hooks/queries"
@@ -11,11 +11,11 @@ const coingecko = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=us
 
 export const usePoolData = (interval: number | null, xlqdrApr: number, compoundFreq: number) => {
 
-  const [finalData2, setFinalData] = useState<ServiceType<FinalData2>>({ status: "loading" });
+  const [displayData, setDisplayData] = useState<ServiceType<Dashboard>>({ status: "loading" });
   const refreshInterval: (number | null) = interval  // ms or null
   const refresh = useTimer(refreshInterval)
 
-  console.log(interval, compoundFreq, xlqdrApr)
+  //console.log(interval, compoundFreq, xlqdrApr)
 
   useEffect(() => {
 
@@ -28,7 +28,7 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
           return response;
         })
         .then((response) => {
-          console.log("return pool")
+          //console.log("return pool")
           return response;
         });
 
@@ -37,13 +37,13 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
           return response.json();
         })
         .then((response) => {
-          console.log("return tokens")
+          //console.log("return tokens")
           return response;
         });
 
       const pdata = await (JSON.parse(JSON.stringify(poolData)))
-      console.log(tokenData)
-      console.log(pdata)
+      //console.log(tokenData)
+      //console.log(pdata)
 
       let beetsPrice: number = 0
       let lqdrPrice: number = 0
@@ -129,7 +129,7 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
         beetsChange24h: beetsChange24h
       }
 
-      setFinalData({
+      setDisplayData({
         status: "loaded",
         payload: {
           results: finalData
@@ -141,6 +141,6 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
 
   }, [refresh, compoundFreq, xlqdrApr]);
 
-  return finalData2
+  return displayData
 }
 

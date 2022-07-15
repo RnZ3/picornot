@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  Square,
   Spacer,
   Center,
   Flex,
@@ -38,7 +37,7 @@ export const App = () => {
   const linkPIC = "https://beets.fi/#/pool/0xeadcfa1f34308b144e96fcd7a07145e027a8467d000000000000000000000331";
   const linkXLQDR = "https://www.liquiddriver.finance/xlqdr";
   const linkCLQDR = "https://mor-ftm.growthdefi.com/clqdr";
-  const linkSHEET = "https://docs.google.com/spreadsheets/d/1C9Xron4HBsTvUJc_YUB1oo5L1S-WQuegZtB7ajGQoKk/edit?pli=1#gid=1600753533";
+  const linkSHEET = "https://docs.google.com/spreadsheets/d/1C9Xron4HBsTvUJc_YUB1oo5L1S-WQuegZtB7ajGQoKk";
 
   const [interval, setInterval] = React.useState<number | null>(null);
   const [compoundFrequency, setCompundFrequency] = React.useState(COMP_FREQ);
@@ -98,7 +97,7 @@ export const App = () => {
               <Spacer />
               <Box padding="5px">
                 <Stat >
-                  <StatLabel sx={{textAlign: "center", fontSize: "1.3rem"}}>APY cLQDR</StatLabel>
+                  <StatLabel sx={{textAlign: "center", fontSize: "1.1rem"}}>APY cLQDR</StatLabel>
                   <StatNumber sx={{ fontSize: "2rem"}}>
                     <chakra.span
                       color={
@@ -112,7 +111,12 @@ export const App = () => {
                   </StatNumber>
                 </Stat>
               </Box>
-              <Box padding="5px" width="33%" >
+              <Box padding="5px" width="35%" >
+                <Center
+                  sx={{ textAlign: "center"}}
+                >
+                  <small>Best option at the moment:</small>
+                </Center>
                 <Center
                   sx={{ fontSize: "1.3rem", fontWeight: "800", textAlign: "center"}}
                 >
@@ -127,7 +131,7 @@ export const App = () => {
               </Box>
               <Box padding="5px">
                 <Stat sx={{textAlign: "center"}}>
-                  <StatLabel sx={{textAlign: "center", fontSize: "1.3rem"}}>APY PiC</StatLabel>
+                  <StatLabel sx={{textAlign: "center", fontSize: "1.1rem"}}>APY PiC</StatLabel>
                   <StatNumber sx={{ fontSize: "2rem"}}>
                     <chakra.span
                       color={

@@ -55,7 +55,7 @@ export interface FinalData {
   lqdrChange24h: number
 }
 
-export interface FinalData2 {
+export interface Dashboard {
   results: FinalData
 }
 
