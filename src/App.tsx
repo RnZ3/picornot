@@ -429,18 +429,6 @@ export const App = () => {
                     for better return.
                   </Text>
                   <Text>
-                    Derived from the{" "}
-                    <Link
-                      _dark={{ color: "teal.200" }}
-                      color="teal.500"
-                      href={linkSHEET}
-                      isExternal
-                    >
-                      google sheet
-                    </Link>{" "}
-                    made by ALMIGHTY ABE and JacksWiths.
-                  </Text>
-                  <Text>
                     Works best when submitting currrent xLQDR APR value which
                     you can find on Liquiddriver's{" "}
                     <Link
@@ -453,6 +441,18 @@ export const App = () => {
                       xLQDR page
                     </Link>
                     . Set compund frequency to how often you compound yearly.
+                  </Text>
+                  <Text>
+                    Derived from the{" "}
+                    <Link
+                      _dark={{ color: "teal.200" }}
+                      color="teal.500"
+                      href={linkSHEET}
+                      isExternal
+                    >
+                      google sheet
+                    </Link>{" "}
+                    made by ALMIGHTY ABE and JacksWiths.
                   </Text>
                 </Box>
                 <Divider />
