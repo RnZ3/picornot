@@ -95,11 +95,11 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
 
       const breakdownTotal = breakdownClqdr + breakdownBeets + breakdownSwap
 
-      //                 (        ((1 + ((C13      *           0.875 ) / 100) / 365         ) ^  365         ) - 1)
-      const clqdrApy   = (        ((1 + ((xlqdrApr *           0.875 ) / 100) / 365         ) ** 365         ) - 1) * 100
+      //                 (  ((1 + ((C13      *           0.875 ) / 100) / 365          ) ^  365   ) - 1)
+      const clqdrApy   = (  ((1 + ((xlqdrApr *           0.875 ) / 100) / 365          ) ** 365   ) - 1) * 100
 
-      //              (         (1 + ( B29+B30+B31          ) / 365 ) ^  365) - 1
-      const picApy =  ((        (1 + ( breakdownTotal / 100 ) / 365 ) ** 365) - 1 ) * 100
+      //              (  (1 + ( B29+B30+B31          ) /          365 ) ^           365) - 1
+      const picApy =  (( (1 + ( breakdownTotal / 100 ) / compoundFreq ) ** compoundFreq) - 1 ) * 100
 
       const provideLP = (picApy > clqdrApy) ? true : false
 
