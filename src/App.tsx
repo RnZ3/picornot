@@ -24,15 +24,22 @@ import {
   TableContainer,
   Tooltip,
   Input,
+  Text,
+  Link,
 } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "ColorModeSwitcher";
 import { Spinner, Progress } from "@chakra-ui/react";
 import { usePoolData } from "hooks/getPoolData";
 
-const XLQDR_APR = 66.66;
+const XLQDR_APR = 52.25;
 const COMP_FREQ = 365;
 
 export const App = () => {
+  const linkPIC = "https://beets.fi/#/pool/0xeadcfa1f34308b144e96fcd7a07145e027a8467d000000000000000000000331";
+  const linkXLQDR = "https://www.liquiddriver.finance/xlqdr";
+  const linkCLQDR = "https://mor-ftm.growthdefi.com/clqdr";
+  const linkSHEET = "https://docs.google.com/spreadsheets/d/1C9Xron4HBsTvUJc_YUB1oo5L1S-WQuegZtB7ajGQoKk/edit?pli=1#gid=1600753533";
+
   const [interval, setInterval] = React.useState<number | null>(null);
   const [compoundFrequency, setCompundFrequency] = React.useState(COMP_FREQ);
   const [xLqdrApr, setxLqdrApr] = React.useState(XLQDR_APR);
@@ -53,7 +60,7 @@ export const App = () => {
     setxLqdrApr(value);
   };
 
-  console.log(interval, compoundFrequency, xLqdrApr);
+  //console.log(interval, compoundFrequency, xLqdrApr);
 
   return (
     <ChakraProvider theme={theme}>
@@ -353,55 +360,109 @@ export const App = () => {
                   </Tbody>
                 </Table>
               </TableContainer>
-              <TableContainer
-                padding="10px"
-                flex="1"
-                flexGrow="1"
-                flexShrink="1"
-                minWidth="max-content"
-              >
-                <Table
-                  size="sm"
-                  bg="#f9f9f9"
-                  borderColor="red"
-                  _dark={{ bg: "#444" }}
-                  sx={{ fontFamily: "monospace" }}
-                >
-                  <Thead>
-                    <Tr>
-                      <Td colSpan={3}>
-                        <Heading size="xs">Breakdown PiC</Heading>
-                      </Td>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    <Tr>
-                      <Td>cLQDR %</Td>
-                      <Td isNumeric>
-                        {pData.payload.results.breakdownClqdr.toFixed(2)}
-                      </Td>
-                    </Tr>
-                    <Tr>
-                      <Td>BEETS %</Td>
-                      <Td isNumeric>
-                        {pData.payload.results.breakdownBeets.toFixed(2)}
-                      </Td>
-                    </Tr>
-                    <Tr>
-                      <Td>Swap fees %</Td>
-                      <Td isNumeric>
-                        {pData.payload.results.breakdownSwap.toFixed(2)}
-                      </Td>
-                    </Tr>
-                    <Tr>
-                      <Td>Total %</Td>
-                      <Td isNumeric>
-                        {pData.payload.results.breakdownTotal.toFixed(2)}
-                      </Td>
-                    </Tr>
-                  </Tbody>
-                </Table>
-              </TableContainer>
+              <Box padding="10px" flex="1" flexGrow="1" flexShrink="1">
+                <TableContainer>
+                  <Table
+                    size="sm"
+                    bg="#f9f9f9"
+                    borderColor="red"
+                    _dark={{ bg: "#444" }}
+                    sx={{ fontFamily: "monospace" }}
+                  >
+                    <Thead>
+                      <Tr>
+                        <Td colSpan={3}>
+                          <Heading size="xs">
+                            Breakdown PiC (APR on year basis)
+                          </Heading>
+                        </Td>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      <Tr>
+                        <Td>cLQDR %</Td>
+                        <Td isNumeric>
+                          {pData.payload.results.breakdownClqdr.toFixed(2)}
+                        </Td>
+                      </Tr>
+                      <Tr>
+                        <Td>BEETS %</Td>
+                        <Td isNumeric>
+                          {pData.payload.results.breakdownBeets.toFixed(2)}
+                        </Td>
+                      </Tr>
+                      <Tr>
+                        <Td>Swap fees %</Td>
+                        <Td isNumeric>
+                          {pData.payload.results.breakdownSwap.toFixed(2)}
+                        </Td>
+                      </Tr>
+                      <Tr>
+                        <Td>Total %</Td>
+                        <Td isNumeric>
+                          {pData.payload.results.breakdownTotal.toFixed(2)}
+                        </Td>
+                      </Tr>
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+                <Box padding="10px" fontSize="sm">
+                  <Text>
+                    This is to help you decide weather to provide liquidity in{" "}
+                    <Link
+                      _dark={{ color: "teal.200" }}
+                      color="teal.500"
+                      href={linkPIC}
+                      isExternal
+                    >
+                      beethoven-x 'Pirate in C' pool
+                    </Link>{" "}
+                    or just keep holding{" "}
+                    <Link
+                      _dark={{ color: "teal.200" }}
+                      color="teal.500"
+                      href={linkCLQDR}
+                      isExternal
+                    >
+                      cLQDR
+                    </Link>{" "}
+                    for better return.
+                  </Text>
+                  <Text>
+                    Derived from the{" "}
+                    <Link
+                      _dark={{ color: "teal.200" }}
+                      color="teal.500"
+                      href={linkSHEET}
+                      isExternal
+                    >
+                      google sheet
+                    </Link>{" "}
+                    made by ALMIGHTY ABE and JacksWiths.
+                  </Text>
+                  <Text>
+                    Works best when submitting currrent xLQDR APR value which
+                    you can find on Liquiddriver's{" "}
+                    <Link
+                      _dark={{ color: "teal.200" }}
+                      color="teal.500"
+                      href={linkXLQDR}
+                      isExternal
+                    >
+                      {" "}
+                      xLQDR page
+                    </Link>
+                    . Set compund frequency to how often you compound yearly.
+                  </Text>
+                </Box>
+                <Divider />
+                <Center>
+                  <small>
+                    <chakra.span color="red">NFA!</chakra.span> Numbers might be
+                    wrong! <chakra.span color="red">DYOR!</chakra.span>
+                  </small>
+                </Center>
+              </Box>
             </Flex>
           </Box>
         </Center>

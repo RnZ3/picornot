@@ -14,9 +14,8 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
   const [finalData2, setFinalData] = useState<ServiceType<FinalData2>>({ status: "loading" });
   const refreshInterval: (number | null) = interval  // ms or null
   const refresh = useTimer(refreshInterval)
-  //var compoundFreq = compoundFrequency 
 
-  //console.log(interval, compoundFreq, xlqdrApr)
+  console.log(interval, compoundFreq, xlqdrApr)
 
   useEffect(() => {
 
@@ -85,16 +84,10 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
       const picClqdrPercent = (clqdrInPool / (lqdrInPool + clqdrInPool) * 100)
 
       //                    = (C17        * C16             * (C13      *           0.875 )  /100)
-      const breakdownClqdr2 = (clqdrRatio * picClqdrPercent * (xlqdrApr *           0.875 ) / 100)
-      const breakdownClqdr  = (clqdrRatio * picClqdrPercent * (xlqdrApr * (1 / clqdrRatio)) / 100)
+      const breakdownClqdr  = (clqdrRatio * picClqdrPercent * (xlqdrApr *           0.875 ) / 100)
 
-      //breakdownBeets 
-      // (Math.pow((1+Math.pow((1+((beetsAprCalc/100)/compoundFreq)),(compoundFreq*1))-1),(1/365))-1)*365
-      //                      ((1+(1+((beetsAprCalc/100)/compoundFreq))^(compoundFreq*1)-1)^(1/365)-1)*365
-
-      //                      ((1+(1+((C14         /100)/C18         )) ^(C18*1         )-1)^ (1/365)-1)*365
-      const breakdownBeets2 = ((1+(1+((beetsAprCalc/100)/compoundFreq))**(compoundFreq*1)-1)**(1/365)-1)*365*100
-      const breakdownBeets =  (Math.pow((1+ Math.pow((1 + ((beetsAprCalc / 100) / compoundFreq)), (compoundFreq * 1)) - 1), (1 / compoundFreq)) - 1) * compoundFreq * 100
+      //                     ((1+(1+((C14         /100)/C18         )) ^(C18*1         )-1)^ (1/365)-1)*365
+      const breakdownBeets = ((1+(1+((beetsAprCalc/100)/compoundFreq))**(compoundFreq*1)-1)**(1/365)-1)*365*100
 
       const swapAprPool = parseFloat(pdata.pool.apr.swapApr)
 
@@ -102,22 +95,13 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
 
       const breakdownTotal = breakdownClqdr + breakdownBeets + breakdownSwap
 
-      //clqdrApy
-      //                (        ((1 + ((C13      *           0.875 ) / 100) / 365         ) ^  365         ) - 1)
-      const clqdrApy2 = (        ((1 + ((xlqdrApr *           0.875 ) / 100) / 365         ) ** 365         ) - 1) * 100
-      const clqdrApy  = (Math.pow((1 + ((xlqdrApr * (1 / clqdrRatio)) / 100) / compoundFreq) ,  compoundFreq) - 1) * 100
+      //                 (        ((1 + ((C13      *           0.875 ) / 100) / 365         ) ^  365         ) - 1)
+      const clqdrApy   = (        ((1 + ((xlqdrApr *           0.875 ) / 100) / 365         ) ** 365         ) - 1) * 100
 
-      //picApy
       //              (         (1 + ( B29+B30+B31          ) / 365 ) ^  365) - 1
-      const picApy2 = ((        (1 + ( breakdownTotal / 100 ) / 365 ) ** 365) - 1 ) * 100
-      const picApy =  (Math.pow((1 + ( breakdownTotal / 100 ) / 365 ) ,  365) - 1 ) * 100
+      const picApy =  ((        (1 + ( breakdownTotal / 100 ) / 365 ) ** 365) - 1 ) * 100
 
-      const provideLP = (picApy > clqdrApy2) ? true : false
-
-      console.log(breakdownClqdr, breakdownClqdr2)
-      console.log(clqdrApy, clqdrApy2)
-      console.log(picApy, picApy2)
-      console.log(breakdownBeets, breakdownBeets2)
+      const provideLP = (picApy > clqdrApy) ? true : false
 
       finalData = {
         beetsPerDay: beetsPerDay,
@@ -134,9 +118,9 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
         picClqdrPercent: picClqdrPercent,
         clqdrRatio: clqdrRatio,
         compoundFreq: compoundFreq,
-        clqdrApy: clqdrApy2,
+        clqdrApy: clqdrApy,
         picApy: picApy,
-        breakdownClqdr: breakdownClqdr2,
+        breakdownClqdr: breakdownClqdr,
         breakdownBeets: breakdownBeets,
         breakdownSwap: breakdownSwap,
         breakdownTotal: breakdownTotal,
