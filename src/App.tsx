@@ -92,7 +92,7 @@ export const App = () => {
       )}
       {pData!.status === "loaded" && (
         <Center>
-          <Box width="80%">
+          <Box>
             <Flex padding="10px" alignItems="center">
               <Spacer />
               <Box padding="5px">
@@ -412,7 +412,7 @@ export const App = () => {
                 </TableContainer>
                 <Box padding="10px" fontSize="sm">
                   <Text>
-                    This is to help you decide weather to provide liquidity in{" "}
+                    This tool is to help you decide weather to provide liquidity in{" "}
                     <Link
                       _dark={{ color: "teal.200" }}
                       color="teal.500"
@@ -441,10 +441,10 @@ export const App = () => {
                       href={linkXLQDR}
                       isExternal
                     >
-                      {" "}
                       xLQDR page
                     </Link>
-                    . Set compund frequency to how often you compound yearly.
+                      {" "}
+                    and compounding frequency.
                   </Text>
                   <Text>
                     Derived from the{" "}
@@ -462,7 +462,7 @@ export const App = () => {
                 <Divider />
                 <Center>
                   <small>
-                    <chakra.span color="red">NFA!</chakra.span> Numbers might be
+                    <chakra.span color="red">NFA!</chakra.span> This website is still in BETA. Numbers might be
                     wrong! <chakra.span color="red">DYOR!</chakra.span>
                   </small>
                 </Center>
