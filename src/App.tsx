@@ -38,6 +38,7 @@ export const App = () => {
   const linkXLQDR = "https://www.liquiddriver.finance/xlqdr";
   const linkCLQDR = "https://mor-ftm.growthdefi.com/clqdr";
   const linkSHEET = "https://docs.google.com/spreadsheets/d/1C9Xron4HBsTvUJc_YUB1oo5L1S-WQuegZtB7ajGQoKk";
+  const linkREPO = "https://github.com/RnZ3/picornot"
 
   const [interval, setInterval] = React.useState<number | null>(null);
   const [compoundFrequency, setCompundFrequency] = React.useState(COMP_FREQ);
@@ -456,18 +457,25 @@ export const App = () => {
                     >
                       google sheet
                     </Link>{" "}
-                    made by ALMIGHTY ABE and JacksWiths.
+                    made by ALMIGHTY ABE and JacksWiths. -- 
+                    <Link
+                      _dark={{ color: "teal.200" }}
+                      color="teal.500"
+                      href={linkREPO}
+                      isExternal
+                    > source code
+                    </Link>
                   </Text>
                 </Box>
-                <Divider />
-                <Center>
-                  <small>
-                    <chakra.span color="red">NFA!</chakra.span> This website is still in BETA. Numbers might be
-                    wrong! <chakra.span color="red">DYOR!</chakra.span>
-                  </small>
-                </Center>
               </Box>
             </Flex>
+            <Divider />
+            <Center>
+              <small>
+                <chakra.span color="red">NFA!</chakra.span> This website is still in BETA. 
+                Numbers might be wrong! <chakra.span color="red">DYOR!</chakra.span>
+              </small>
+            </Center>
           </Box>
         </Center>
       )}
