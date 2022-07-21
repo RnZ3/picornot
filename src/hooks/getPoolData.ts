@@ -12,8 +12,7 @@ const coingecko = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=us
 export const usePoolData = (interval: number | null, xlqdrApr: number, compoundFreq: number) => {
 
   const [displayData, setDisplayData] = useState<ServiceType<Dashboard>>({ status: "loading" });
-  const refreshInterval: (number | null) = interval  // ms or null
-  const refresh = useTimer(refreshInterval)
+  const refresh = useTimer(interval)
 
   //console.log(interval, compoundFreq, xlqdrApr)
 
@@ -25,6 +24,9 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
 
       const poolData = await request(endpoint, POOL_QUERY, { id })
         .then((response) => {
+          if (response.status >= 400 && response.status < 600) {
+            throw new Error("Bad response from server")
+          }
           return response;
         })
         .then((response) => {
@@ -34,6 +36,9 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
 
       const tokenData = await fetch(coingecko || "")
         .then((response) => {
+          if (response.status >= 400 && response.status < 600) {
+            throw new Error("Bad response from server")
+          }
           return response.json();
         })
         .then((response) => {
@@ -103,7 +108,10 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
 
       const provideLP = (picApy > clqdrApy) ? true : false
 
+      const ts = Date.now()
+
       finalData = {
+        ts: ts,
         beetsPerDay: beetsPerDay,
         fees24h: parseFloat(pdata.pool.fees24h),
         beetsPrice: beetsPrice,
@@ -139,7 +147,7 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
 
     fetchData()
 
-  }, [refresh, compoundFreq, xlqdrApr]);
+  }, [ interval, refresh, compoundFreq, xlqdrApr]);
 
   return displayData
 }

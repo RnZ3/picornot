@@ -25,15 +25,18 @@ import {
   Input,
   Text,
   Link,
-} from "@chakra-ui/react";
-import { ColorModeSwitcher } from "ColorModeSwitcher";
-import { Spinner, Progress } from "@chakra-ui/react";
-import { usePoolData } from "hooks/getPoolData";
+  Spinner
+} from "@chakra-ui/react"
+import { ColorModeSwitcher } from "components/ColorModeSwitcher"
+import { TimedProgress } from "components/TimedProgress"
+import { usePoolData } from "hooks/getPoolData"
 
-const XLQDR_APR = 52.25;
+const XLQDR_APR = 64.25;
 const COMP_FREQ = 365;
+var oldts = 0
 
 export const App = () => {
+
   const linkPIC = "https://beets.fi/#/pool/0xeadcfa1f34308b144e96fcd7a07145e027a8467d000000000000000000000331";
   const linkXLQDR = "https://www.liquiddriver.finance/xlqdr";
   const linkCLQDR = "https://mor-ftm.growthdefi.com/clqdr";
@@ -47,6 +50,13 @@ export const App = () => {
 
   const pData = usePoolData(interval, xLqdrApr, compoundFrequency);
 
+  if (pData.status === 'loaded') {
+    if (pData.payload.results.ts !== oldts)  {
+      console.log( pData.payload.results.ts, oldts )
+      oldts = pData.payload.results.ts
+    }
+  }
+
   const handleClick = () => {
     setInterval(interval === null ? 30000 : null);
   };
@@ -59,8 +69,6 @@ export const App = () => {
     event.preventDefault();
     setxLqdrApr(value);
   };
-
-  //console.log(interval, compoundFrequency, xLqdrApr);
 
   return (
     <ChakraProvider theme={theme}>
@@ -83,7 +91,7 @@ export const App = () => {
         {interval === null ? (
           <Divider />
         ) : (
-          <Progress hasStripe size="xs" height="1px" isIndeterminate />
+          <TimedProgress oldts={oldts} />
         )}{" "}
       </Box>
       {pData!.status === "loading" && (
@@ -217,6 +225,7 @@ export const App = () => {
                           <option value="12">12</option>
                           <option value="52">52</option>
                           <option value="365">365</option>
+                          <option value="1460">reaper</option>
                         </Select>
                       </Td>
                     </Tr>
@@ -482,3 +491,4 @@ export const App = () => {
     </ChakraProvider>
   );
 };
+

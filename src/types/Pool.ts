@@ -30,6 +30,7 @@ export interface PoolType  {
 }
 
 export interface FinalData {
+  ts: number
   beetsPerDay: number
   fees24h: number
   beetsPrice: number
