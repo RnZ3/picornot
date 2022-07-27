@@ -81,7 +81,10 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
 
       // const xlqdrApr = 63.53  // use form value
 
-      const beetsPerDay = parseFloat(pdata.pool.farm.rewardTokens[0].rewardPerDay)
+      let beetsPerDay = 0
+      if (pdata.pool.farm.rewardTokens.length !== 0) {
+        beetsPerDay = parseFloat(pdata.pool.farm.rewardTokens[0].rewardPerDay)
+      }
 
       //                 = (C7          * C8         * 365) / ((C10        * C9       ) + (C11         * C17        * C9       )) * 100
       const beetsAprCalc = (beetsPerDay * beetsPrice * 365) / ((lqdrInPool * lqdrPrice) + (clqdrInPool * clqdrRatio * lqdrPrice)) * 100
