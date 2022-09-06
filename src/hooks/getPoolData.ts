@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { FinalData, Dashboard } from "types/Pool"
 import { ServiceType } from "types/Service";
 import { request } from "graphql-request"
-import { POOL_QUERY } from "hooks/queries"
+import { POOL_QUERY, POOL_QUERY_V2 } from "hooks/queries"
 import { useTimer } from "hooks/useTimer"
 
-const endpoint = "https://backend.beets-ftm-node.com/graphql"
+const endpoint1 = "https://backend.beets-ftm-node.com/graphql"
+const endpoint2 = "https://backend-v2.beets-ftm-node.com/graphql";
 const id = "0xeadcfa1f34308b144e96fcd7a07145e027a8467d000000000000000000000331"
 const coingecko = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=liquiddriver,beethoven-x'
 
@@ -22,7 +23,7 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
 
     const fetchData = async () => {
 
-      const poolData = await request(endpoint, POOL_QUERY, { id })
+      const poolData = await request(endpoint1, POOL_QUERY, { id })
         .then((response) => {
           if (response.status >= 400 && response.status < 600) {
             throw new Error("Bad response from server")
@@ -31,6 +32,18 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
         })
         .then((response) => {
           //console.log("return pool")
+          return response;
+        });
+
+      const poolData2 = await request(endpoint2, POOL_QUERY_V2, { id })
+        .then((response) => {
+          if (response.status >= 400 && response.status < 600) {
+            throw new Error("Bad response from server")
+          }
+          return response;
+        })
+        .then((response) => {
+          //console.log("return pool v2")
           return response;
         });
 
@@ -47,8 +60,11 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
         });
 
       const pdata = await (JSON.parse(JSON.stringify(poolData)))
+      const pdata2 = await (JSON.parse(JSON.stringify(poolData2)))
       //console.log(tokenData)
-      //console.log(pdata)
+
+      const beetsPerDayV2 = pdata2.blocksGetBlocksPerDay * pdata2.poolGetPool.staking.farm.beetsPerBlock
+      //console.log(pdata2.blocksGetBlocksPerDay,pdata2.poolGetPool.staking.farm.beetsPerBlock,beetsPerDayV2)
 
       let beetsPrice: number = 0
       let lqdrPrice: number = 0
@@ -87,7 +103,7 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
       }
 
       //                 = (C7          * C8         * 365) / ((C10        * C9       ) + (C11         * C17        * C9       )) * 100
-      const beetsAprCalc = (beetsPerDay * beetsPrice * 365) / ((lqdrInPool * lqdrPrice) + (clqdrInPool * clqdrRatio * lqdrPrice)) * 100
+      const beetsAprCalc = (beetsPerDayV2 * beetsPrice * 365) / ((lqdrInPool * lqdrPrice) + (clqdrInPool * clqdrRatio * lqdrPrice)) * 100
 
       const picClqdrPercent = (clqdrInPool / (lqdrInPool + clqdrInPool) * 100)
 
@@ -115,7 +131,7 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
 
       finalData = {
         ts: ts,
-        beetsPerDay: beetsPerDay,
+        beetsPerDay: beetsPerDayV2,
         fees24h: parseFloat(pdata.pool.fees24h),
         beetsPrice: beetsPrice,
         lqdrPrice: lqdrPrice,

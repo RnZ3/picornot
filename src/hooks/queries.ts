@@ -33,3 +33,20 @@ export const POOL_QUERY = gql`
   }
 `;
 
+export const POOL_QUERY_V2 = gql`
+  query  Pool (
+    $id: String!
+  ) {
+    blocksGetBlocksPerDay
+    poolGetPool(
+      id:$id
+    ) {
+      staking {
+        farm {
+          beetsPerBlock
+        }
+      }
+    }
+  }
+`;
+

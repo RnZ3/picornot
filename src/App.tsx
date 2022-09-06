@@ -31,7 +31,7 @@ import { ColorModeSwitcher } from "components/ColorModeSwitcher"
 import { TimedProgress } from "components/TimedProgress"
 import { usePoolData } from "hooks/getPoolData"
 
-const XLQDR_APR = 64.25;
+const XLQDR_APR = 42.23;
 const COMP_FREQ = 365;
 var oldts = 0
 
@@ -52,7 +52,7 @@ export const App = () => {
 
   if (pData.status === 'loaded') {
     if (pData.payload.results.ts !== oldts)  {
-      console.log( pData.payload.results.ts, oldts )
+      //console.log( pData.payload.results.ts, oldts )
       oldts = pData.payload.results.ts
     }
   }
