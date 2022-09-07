@@ -63,8 +63,8 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
       const pdata2 = await (JSON.parse(JSON.stringify(poolData2)))
       //console.log(tokenData)
 
-      const beetsPerDayV2 = pdata2.blocksGetBlocksPerDay * pdata2.poolGetPool.staking.farm.beetsPerBlock
-      //console.log(pdata2.blocksGetBlocksPerDay,pdata2.poolGetPool.staking.farm.beetsPerBlock,beetsPerDayV2)
+      const beetsPerDayV2 = (pdata2.blocksGetBlocksPerDay || 0) * parseFloat(pdata2.poolGetPool.staking.farm.beetsPerBlock || 0)
+      const beetsPriceV2 = (pdata2.beetsGetBeetsPrice || 0)
 
       let beetsPrice: number = 0
       let lqdrPrice: number = 0
@@ -128,6 +128,9 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
       const provideLP = (picApy > clqdrApy) ? true : false
 
       const ts = Date.now()
+
+      console.log('blocks/day:',pdata2.blocksGetBlocksPerDay, 'beets/block:',pdata2.poolGetPool.staking.farm.beetsPerBlock, 'beets/day:',beetsPerDayV2)
+      console.log("beets \ncg:", beetsPrice, "\napi:", beetsPriceV2)
 
       finalData = {
         ts: ts,

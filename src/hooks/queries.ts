@@ -37,6 +37,7 @@ export const POOL_QUERY_V2 = gql`
   query  Pool (
     $id: String!
   ) {
+    beetsGetBeetsPrice
     blocksGetBlocksPerDay
     poolGetPool(
       id:$id
