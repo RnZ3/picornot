@@ -108,7 +108,7 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
       const picClqdrPercent = (clqdrInPool / (lqdrInPool + clqdrInPool) * 100)
 
       //                    = (C17        * C16             * (C13      *           0.875 )  /100)
-      const breakdownClqdr  = (clqdrRatio * picClqdrPercent * (xlqdrApr *           0.875 ) / 100)
+      const breakdownClqdr  = (clqdrRatio * picClqdrPercent * (xlqdrApr *           0.9 ) / 100)
 
       //                     ((1+(1+((C14         /100)/C18         )) ^(C18*1         )-1)^ (1/365)-1)*365
       const breakdownBeets = ((1+(1+((beetsAprCalc/100)/compoundFreq))**(compoundFreq*1)-1)**(1/365)-1)*365*100
@@ -120,7 +120,7 @@ export const usePoolData = (interval: number | null, xlqdrApr: number, compoundF
       const breakdownTotal = breakdownClqdr + breakdownBeets + breakdownSwap
 
       //                 (  ((1 + ((C13      *           0.875 ) / 100) / 365          ) ^  365   ) - 1)
-      const clqdrApy   = (  ((1 + ((xlqdrApr *           0.875 ) / 100) / 365          ) ** 365   ) - 1) * 100
+      const clqdrApy   = (  ((1 + ((xlqdrApr *           0.9 ) / 100) / 365          ) ** 365   ) - 1) * 100
 
       //              (  (1 + ( B29+B30+B31          ) /          365 ) ^           365) - 1
       const picApy =  (( (1 + ( breakdownTotal / 100 ) / compoundFreq ) ** compoundFreq) - 1 ) * 100

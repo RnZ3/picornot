@@ -31,7 +31,7 @@ import { ColorModeSwitcher } from "components/ColorModeSwitcher"
 import { TimedProgress } from "components/TimedProgress"
 import { usePoolData } from "hooks/getPoolData"
 
-const XLQDR_APR = 42.23;
+const XLQDR_APR = 44.99;
 const COMP_FREQ = 365;
 var oldts = 0
 
