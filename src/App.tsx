@@ -31,7 +31,7 @@ import { ColorModeSwitcher } from "components/ColorModeSwitcher"
 import { TimedProgress } from "components/TimedProgress"
 import { usePoolData } from "hooks/getPoolData"
 
-const XLQDR_APR = 44.99;
+const XLQDR_APR = 34.99;
 const COMP_FREQ = 365;
 var oldts = 0
 
@@ -39,7 +39,7 @@ export const App = () => {
 
   const linkPIC = "https://beets.fi/#/pool/0xeadcfa1f34308b144e96fcd7a07145e027a8467d000000000000000000000331";
   const linkXLQDR = "https://www.liquiddriver.finance/xlqdr";
-  const linkCLQDR = "https://mor-ftm.growthdefi.com/clqdr";
+  const linkCLQDR = "https://app.dei.finance/clqdr";
   const linkSHEET = "https://docs.google.com/spreadsheets/d/1C9Xron4HBsTvUJc_YUB1oo5L1S-WQuegZtB7ajGQoKk";
   const linkREPO = "https://github.com/RnZ3/picornot"
 
