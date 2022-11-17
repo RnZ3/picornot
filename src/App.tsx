@@ -422,7 +422,7 @@ export const App = () => {
                 </TableContainer>
                 <Box padding="10px" fontSize="sm">
                   <Text>
-                    This tool is to help you decide weather to provide liquidity in{" "}
+                    This tool is to help you decide whether to provide liquidity in{" "}
                     <Link
                       _dark={{ color: "teal.200" }}
                       color="teal.500"
